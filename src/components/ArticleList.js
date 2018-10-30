@@ -9,8 +9,8 @@ class ArticleList extends Component {
 	        <li key={article.id}>
 	            <Article
 	                article = {article}
-	                isOpen = {article.id === this.props.openArticleId}
-	                toggleOpen = {this.props.toggleOpen(true, article.id)}
+	                isOpen = {article.id === this.props.isOpen}
+	                toggleOpen = {this.props.toggleOpen(article.id)}
 	            />
 	        </li>
         )
