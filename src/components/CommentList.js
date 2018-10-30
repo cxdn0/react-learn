@@ -3,10 +3,11 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 
 function CommentList({comments = [], isOpen, toggleOpen}) {
+    console.log('isOpen', isOpen)
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
         <div>
-            <button onClick={toggleOpen}>{text}</button>
+            <button onClick={toggleOpen()}>{text}</button>
             {getBody({comments, isOpen})}
         </div>
     )
