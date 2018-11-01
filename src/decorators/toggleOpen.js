@@ -12,7 +12,7 @@ export default (OriginalComponent) => class WrappedComponent extends ReactCompon
 
     toggleOpen = openArticleId => ev => {
         ev && ev.preventDefault && ev.preventDefault()
-        // console.log('this.props in toggleOpen', this.state)
+        // console.log('event', ev.nativeEvent)
         // console.log('isArticle', isArticle)
         if(this.props.articles) {
             openArticleId = this.state.isOpen === openArticleId ? null : openArticleId
