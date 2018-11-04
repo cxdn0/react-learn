@@ -13,8 +13,10 @@ class AddComment extends Component {
 	}
 
     render() {
-    	const usernameWarnClass = (this.state.username.length<5 || this.state.username.length>15) ? 'input-warning' : ''
-    	const commentWarnClass = (this.state.comment.length<20 || this.state.comment.length>50) ? 'fixed-width input-warning' : 'fixed-width'
+        const ulen = this.state.username.length
+        const clen = this.state.comment.length
+    	const usernameWarnClass = ((ulen>0 && ulen<5) || ulen>15) ? 'input-warning' : ''
+    	const commentWarnClass = ((clen>0 && clen<20) || clen>50) ? 'fixed-width input-warning' : 'fixed-width'
 
     	return (
     		<div>
