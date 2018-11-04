@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Comment from './Comment'
+import AddComment from './AddComment'
 import toggleOpen from '../decorators/toggleOpen'
 
 function CommentList({comments = [], isOpen, toggleOpen}) {
@@ -27,6 +28,7 @@ function getBody({comments, isOpen}) {
     return (
         <ul>
             {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
+            <AddComment />
         </ul>
     )
 }
