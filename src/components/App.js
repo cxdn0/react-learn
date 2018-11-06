@@ -10,13 +10,12 @@ class App extends Component {
     static propTypes = {
 
     };
-
     render() {
         return (
             <div>
                 <Counter />
                 <UserForm />
-                <Filters articles = {[]} />
+                <Filters />
                 <ArticleList />
             </div>
         )
