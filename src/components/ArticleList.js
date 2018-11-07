@@ -30,6 +30,22 @@ class ArticleList extends Component {
     }
 }
 
-export default connect(state => ({
-    articles: state.articles
-}))(accordion(ArticleList))
+export default connect(state => {
+    console.log('state.articles', state.articles)
+    console.log('state.filters', state.filters)
+    let {selected, dateRange: {from, to}} = state.filters
+    from = (from ? from.getTime() : from)
+    to = (to ? to.getTime() : to)
+    //window.timefrom = []
+    let filteredArticles = state.articles.filter(article => {
+        let published = Date.parse(article.date)
+        console.log('published', published, 'from', from, to, article.date > from)
+        //window.timefrom.push(from)
+        return (!selected.length || selected.includes(article.id)) &&
+            (!from || !to || (published > from && published < to))
+    })
+
+    return {
+        articles: filteredArticles
+    }
+})(accordion(ArticleList))

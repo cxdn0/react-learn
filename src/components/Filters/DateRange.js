@@ -25,6 +25,7 @@ class DateRange extends Component {
             <div className="date-range">
                 <DayPicker
                     ref="daypicker"
+                    month={new Date(2016, 5)}
                     selectedDays={ day => DateUtils.isDayInRange(day, { from, to }) }
                     onDayClick={ this.handleDayClick }
                 />
