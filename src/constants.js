@@ -1,4 +1,5 @@
 export const DELETE_ARTICLE = 'DELETE_ARTICLE'
+export const NEW_COMMENT = 'NEW_COMMENT'
 
 export const INCREMENT = 'INCREMENT'
 
