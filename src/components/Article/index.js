@@ -30,6 +30,7 @@ class Article extends PureComponent {
 
     render() {
         const {article, isOpen, toggleOpen} = this.props
+
         return (
             <div ref = {this.setContainerRef}>
                 <h3>{article.title}</h3>
@@ -45,7 +46,7 @@ class Article extends PureComponent {
                     transitionAppearTimeout = {500}
                     component = 'div'
                 >
-                    {this.getBody()}
+                    {isOpen ? this.getBody() : ''}
                 </CSSTransitionGroup>
             </div>
         )
@@ -64,12 +65,13 @@ class Article extends PureComponent {
 
     getBody() {
         const {article, isOpen} = this.props
+        console.log('getBody article', article)
         if (!isOpen) return null
         return (
             <section>
                {article.text}
                 <button onClick = {() => this.setState({updateIndex: this.state.updateIndex + 1})}>update</button>
-               <CommentList comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
+               <CommentList article = {article} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
             </section>
         )
     }
