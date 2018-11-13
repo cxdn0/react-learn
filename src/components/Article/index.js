@@ -68,6 +68,7 @@ class Article extends PureComponent {
     }
 
     getBody() {
+        //console.log('this.props in Article', this.props)
         const {article, isOpen} = this.props
         if (!isOpen) return null
         if (article.loading) return <Loader/>

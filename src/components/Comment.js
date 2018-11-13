@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {commentSelectorFactory} from '../selectors'
 
-function Comment({comment}) {
+function Comment({id, comment}) {
+    // console.log(' ----- comment', comment)
+
+    {/*return (<div></div>)*/}
+
     return (
         <div>
-            <p>{comment.text} <b>by {comment.user}</b></p>
+            <p>{comment.get('text')} <b>by {comment.get('user')}</b></p>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import {DELETE_ARTICLE, INCREMENT, CHANGE_DATE_RANGE, CHANGE_SELECTION, ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_COMMENT, START, SUCCESS, FAIL
 } from '../constants'
 
 export function increment() {
@@ -38,6 +38,7 @@ export function addComment(comment, articleId) {
 }
 
 export function loadAllArticles() {
+    console.log('loadAllArticles')
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
@@ -66,6 +67,27 @@ export function loadArticle(id) {
     }
 }
 
+export function loadComments(articleId) {
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_COMMENT + START,
+            payload: { articleId }
+        })
+
+        setTimeout(() => {
+            fetch(`/api/comment?article=${articleId}`)
+                .then(res => res.json())
+                .then(response => dispatch({
+                    type: LOAD_COMMENT + SUCCESS,
+                    payload: { articleId, response }
+                }))
+                .catch(error => dispatch({
+                    type: LOAD_COMMENT + FAIL,
+                    payload: { articleId, error }
+                }))
+        }, 1000)
+    }
+}
 /*
 export function loadArticle(id) {
     return {

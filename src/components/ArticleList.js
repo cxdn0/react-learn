@@ -25,13 +25,14 @@ class ArticleList extends Component {
         console.log('---', 'update article list')
         const { articles, openItemId, toggleOpenItem, loading } = this.props
         if (loading) return <Loader/>
+            // console.log(' ____ articles', articles)
         const articleElements = articles.map(article => <li key={article.id}>
-            <Article
-                article = {article}
-                isOpen = {article.id === openItemId}
-                toggleOpen = {toggleOpenItem(article.id)}
-            />
-        </li>)
+                    <Article
+                        article = {article}
+                        isOpen = {article.id === openItemId}
+                        toggleOpen = {toggleOpenItem(article.id)}
+                    />
+                </li>)
 
         return (
             <ul>
