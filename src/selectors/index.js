@@ -3,8 +3,11 @@ import {mapToArr} from '../helpers'
 
 const filtersGetter = state => state.filters
 const articlesGetter = state => state.articles.entities
-const commentsGetter = state => state.comments
-const idGetter = (state, props) => props.id
+// const commentsGetter = state => {
+// 	// console.log(' --... state', state)
+// 	return state.comments
+// }
+const idGetter = (state, props) => props.comment
 
 export const filtratedArticlesSelector = createSelector(articlesGetter, filtersGetter, (articles, filters) => {
     const {selected, dateRange: {from, to}} = filters
@@ -16,7 +19,7 @@ export const filtratedArticlesSelector = createSelector(articlesGetter, filtersG
     })
 })
 
-export const commentSelectorFactory = () => createSelector(commentsGetter, idGetter, (comments, id) => {
-	// console.log(' .. comments.get(id)', comments.get(id))
-    return comments.get(id)
+export const commentSelectorFactory = () => createSelector(/*commentsGetter,*/ idGetter, (comment) => {
+	// console.log(' .. comment', comment)
+    return comment
 })

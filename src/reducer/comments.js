@@ -1,7 +1,7 @@
 import {normalizedComments as defaulComments} from '../fixtures'
-import {ADD_COMMENT/*, LOAD_COMMENT, START, SUCCESS, FAIL*/} from '../constants'
+import {ADD_COMMENT, LOAD_COMMENT, START, SUCCESS, FAIL} from '../constants'
 import {arrToMap} from '../helpers'
-import {OrderedMap, Record} from 'immutable'
+import {OrderedMap, Record, Map} from 'immutable'
 
 const CommentRecord = Record({
     id: undefined,
@@ -9,19 +9,29 @@ const CommentRecord = Record({
     user: undefined
 })
 
-const commentsMap = arrToMap(defaulComments, CommentRecord)
+const ArticleCommentsRecord = Record({
+	loading: false,
+	entities: new OrderedMap({})
+})
+
+const commentsMap = new OrderedMap() //arrToMap([], )
 
 export default (commentsState = commentsMap, action) => {
-    const {type, payload, randomId} = action
+    const {type, payload, response, randomId} = action
 
     switch (type) {
         case ADD_COMMENT:
-        	return commentsState.set(randomId, new CommentRecord({...payload.comment, id: randomId}))
-            // return {...commentsState, [randomId]: payload.comment}
-        // case LOAD_COMMENT + START:
-        // 	return commentsState
-        // case LOAD_COMMENT + SUCCESS:
-        // 	return commentsState
+        	const {comment} = payload
+        	return commentsState.setIn([payload.articleId, 'entities', randomId], new CommentRecord({...comment, id: randomId}))
+
+        case LOAD_COMMENT + START:
+        	// console.log('commentsState.setIn([payload.articleId, loading], true)', commentsState.setIn([payload.articleId, 'loading'], true))
+            return commentsState.set(payload.articleId, new ArticleCommentsRecord({'loading': true}))
+
+        case LOAD_COMMENT + SUCCESS:
+            return commentsState
+            	.setIn([payload.articleId, 'entities'], arrToMap(payload.response, CommentRecord))
+            	.setIn([payload.articleId, 'loading'], false)
     }
 
     return commentsState

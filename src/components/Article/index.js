@@ -23,7 +23,9 @@ class Article extends PureComponent {
         updateIndex: 0
     }
 
-    componentWillReceiveProps({isOpen, loadArticle, article}) {
+    componentWillReceiveProps(nextProps) {
+        const {isOpen, loadArticle, article} = nextProps
+        // console.log('nextProps on componentWillReceiveProps', nextProps)
         if (isOpen && !article.text && !article.loading) loadArticle(article.id)
     }
 

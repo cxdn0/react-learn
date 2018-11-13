@@ -3,20 +3,17 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {commentSelectorFactory} from '../selectors'
 
-function Comment({id, comment}) {
-    // console.log(' ----- comment', comment)
-
-    {/*return (<div></div>)*/}
-
+function Comment({comment}) {
+    // console.log(' ---------- id ', id)
     return (
         <div>
-            <p>{comment.get('text')} <b>by {comment.get('user')}</b></p>
+            <p>{comment.text} <b>by {comment.user}</b></p>
         </div>
     )
 }
 
 Comment.propTypes = {
-    id: PropTypes.string.isRequired,
+    // id: PropTypes.string.isRequired,
     //from connect
     comment: PropTypes.shape({
         text: PropTypes.string.isRequired,
@@ -28,6 +25,8 @@ const mapStateToProps = () => {
     const commentSelector = commentSelectorFactory()
 
     return (state, ownProps) => {
+        // console.log('1234 --- ownProps', ownProps)
+        
         return {
             comment: commentSelector(state, ownProps)
         }
