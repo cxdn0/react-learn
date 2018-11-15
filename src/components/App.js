@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Articles from './routes/Articles'
 import NewArticle from './routes/NewArticle'
 import NotFound from './routes/NotFound'
+import Comments from './routes/Comments'
 import UserForm from './UserForm'
 import Filters from './Filters'
 import Counter from './Counter'
@@ -14,6 +15,7 @@ class App extends Component {
 
     };
 
+
     render() {
         return (
             <Router>
@@ -23,6 +25,7 @@ class App extends Component {
                         <div><NavLink activeStyle = {{color: 'red'}} to="/counter">Counter</NavLink></div>
                         <div><NavLink activeStyle = {{color: 'red'}} to="/filters">Filters</NavLink></div>
                         <div><NavLink activeStyle = {{color: 'red'}} to="/articles">Articles</NavLink></div>
+                        <div><NavLink activeStyle = {{color: 'red'}} to="/comments">Comments</NavLink></div>
                     </div>
                     <UserForm />
                     <Switch>
@@ -30,6 +33,7 @@ class App extends Component {
                         <Route path = "/filters" component = {Filters} />
                         <Route path = "/articles/new" component = {NewArticle} />
                         <Route path = "/articles" component = {Articles} />
+                        <Route path = "/comments" component = {Comments} />
                         <Route path = "*" component = {NotFound}/>
                     </Switch>
                 </div>
