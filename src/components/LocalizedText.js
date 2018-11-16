@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 function LocalizedText(props, context) {
     if (typeof props.children !== 'string') {
@@ -8,9 +9,9 @@ function LocalizedText(props, context) {
     return <span>{context.dictionary[props.children] || props.children}</span>
 }
 
-LocalizedText.propTypes = {
-    children: PropTypes.string
-}
+// LocalizedText.propTypes = {
+//     children: PropTypes.string
+// }
 
 LocalizedText.contextTypes = {
     dictionary: PropTypes.object.isRequired
