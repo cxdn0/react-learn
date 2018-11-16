@@ -52,8 +52,13 @@ export function loadArticleComments(articleId) {
     }
 }
 
-export function loadArticle(id) {
-    return (dispatch) => {
+export function waitAndLoadArticle(id) {
+    return (dispatch, getState) => {
+        const {articles: { loading: articlesLoading, loaded: articlesLoaded }, articles} = getState()
+        const article = getState().articles.entities.get(id)
+        if (articlesLoading && !articlesLoaded) return
+        if (article && (article.text || article.loading || article.loaded)) return
+
         dispatch({
             type: LOAD_ARTICLE + START,
             payload: { id }
@@ -70,7 +75,7 @@ export function loadArticle(id) {
                     type: LOAD_ARTICLE + FAIL,
                     payload: { id, error }
                 }))
-        }, 500)
+        }, 1000)
     }
 }
 

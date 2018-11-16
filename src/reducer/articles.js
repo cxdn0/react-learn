@@ -40,7 +40,17 @@ export default (articleState = defaultState, action) => {
             return articleState.set('loading', true)
 
         case LOAD_ALL_ARTICLES + SUCCESS:
-            return articleState
+            // const {...tempState} = {articleState}
+            // const tempState = response.reduce((acc, item) => {
+            //     for(let i in item)
+            //         for(let j in item[i])
+            //             acc.setIn(['entities', item.id, j], item[i][j])
+            //     return acc
+            // }, articleState)
+            // console.log('--- response', response)
+            // console.log('--- tempState <---', tempState)
+
+            return articleState //tempState
                 .set('entities', arrToMap(response, ArticleRecord))
                 .set('loading', false)
                 .set('loaded', true)

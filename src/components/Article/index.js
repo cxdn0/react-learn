@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import CommentList from '../CommentList'
 import { CSSTransitionGroup } from 'react-transition-group'
-import {deleteArticle, loadArticle} from '../../AC'
+import {deleteArticle, waitAndLoadArticle} from '../../AC'
 import Loader from '../Loader'
 import './style.css'
 
@@ -26,10 +26,19 @@ class Article extends PureComponent {
         areCommentsOpen: false
     }
 
-    componentDidMount() {
-        const {loadArticle, article, id} = this.props
-        if (!article  || (!article.text && !article.loading)) loadArticle(id)
+    componentWillUpdate(nextProps) {
+        // this.handleUpdateComponent(nextProps)
+        nextProps.waitAndLoadArticle(nextProps.id)
     }
+
+    componentDidMount() {
+        // this.handleUpdateComponent(this.props)
+        this.props.waitAndLoadArticle(this.props.id)
+    }
+
+    // handleUpdateComponent({loadArticle, article, id, articlesLoading, articlesLoaded}) {
+    //     if (!articlesLoading && articlesLoaded && (!article || (!article.text && !article.loading))) loadArticle(id)
+    // }
 
 /*
     shouldComponentUpdate(nextProps, nextState) {
@@ -93,4 +102,4 @@ class Article extends PureComponent {
 
 export default connect((state, ownProps) => ({
     article: state.articles.entities.get(ownProps.id)
-}), { deleteArticle, loadArticle })(Article)
+}), { deleteArticle, waitAndLoadArticle })(Article)
