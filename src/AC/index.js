@@ -53,8 +53,13 @@ export function loadArticleComments(articleId) {
     }
 }
 
-export function loadArticle(id) {
-    return (dispatch) => {
+export function waitAndLoadArticle(id) {
+    return (dispatch, getState) => {
+        const {articles: { loading: articlesLoading, loaded: articlesLoaded }, articles} = getState()
+        const article = getState().articles.entities.get(id)
+        if (articlesLoading && !articlesLoaded) return
+        if (article && (article.text || article.loading || article.loaded)) return
+
         dispatch({
             type: LOAD_ARTICLE + START,
             payload: { id }
@@ -62,24 +67,16 @@ export function loadArticle(id) {
 
         setTimeout(() => {
             fetch(`/api/article/${id}`)
-                .then(res => {
-                    if (res.status >= 400) {
-                        throw new Error(res.statusText)
-                    }
-                    return res.json()
-                })
+                .then(res => res.json())
                 .then(response => dispatch({
                     type: LOAD_ARTICLE + SUCCESS,
                     payload: { id, response }
                 }))
-                .catch(error => {
-                    dispatch({
-                        type: LOAD_ARTICLE + FAIL,
-                        payload: { id, error }
-                    })
-                    dispatch(replace('/error'))
-                })
-        }, 500)
+                .catch(error => dispatch({
+                    type: LOAD_ARTICLE + FAIL,
+                    payload: { id, error }
+                }))
+        }, 1000)
     }
 }
 
