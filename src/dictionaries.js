@@ -7,7 +7,7 @@ export const en = {
 }
 
 export const ru = {
-    'delete me': 'удалить статью',
+    'delete me': 'удалить меня',
     'show comments': 'показать комментарии',
     'hide comments': 'спрятать комментарии',
     'Loading': 'Загрузка',

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import LocalizedText from './LocalizedText'
+import {LocalizedText} from './GetFromContext'
 
 function Loader(props) {
     return (

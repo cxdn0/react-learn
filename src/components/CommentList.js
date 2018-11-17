@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import Loader from './Loader'
 import Comment from './Comment'
 import CommentForm from './CommentForm'
-import LocalizedText from './LocalizedText'
+import {LocalizedText, GetUser} from './GetFromContext'
 import toggleOpen from '../decorators/toggleOpen'
 import { loadArticleComments } from '../AC'
 import { connect } from 'react-redux'
 
 class CommentList extends Component {
-    static contextTypes = {
-        store: PropTypes.object,
-        router: PropTypes.object,
-        user: PropTypes.string
-    }
+    // static contextTypes = {
+    //     store: PropTypes.object,
+    //     router: PropTypes.object,
+    //     user: PropTypes.string
+    // }
 
     componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
         if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
@@ -26,7 +26,7 @@ class CommentList extends Component {
         const text = isOpen ? 'hide comments' : 'show comments'
         return (
             <div>
-                <h3>User: {this.context.user}</h3>
+                <h3>User: {GetUser()}</h3>
                 <button onClick={toggleOpen}><LocalizedText>{text}</LocalizedText></button>
                 {getBody({article, isOpen})}
             </div>

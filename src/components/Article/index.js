@@ -6,7 +6,7 @@ import CommentList from '../CommentList'
 import { CSSTransitionGroup } from 'react-transition-group'
 import {deleteArticle, loadArticle} from '../../AC'
 import Loader from '../Loader'
-import LocalizedText from '../LocalizedText'
+import {LocalizedText} from '../GetFromContext'
 import './style.css'
 
 class Article extends Component {
